@@ -1,0 +1,57 @@
+<head>
+  <title>VueJS Concept Testing</title>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.9.0/math.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+  <div id="app">
+    <input id="inputField" type="text" v-on:input="updateOutput" v-on:keyup.enter="saveResult" v-model="input" />
+    <div id="inputs">
+      <div id="buttons">
+        <button id="btnSqrt" v-on:click="insert('sqrt(x)')">
+          &radic; <span style="text-decoration:overline;">x</span>
+        </button>
+        <button id="btnPow" v-on:click="insert('x^y')">
+          x<sup>y</sup>
+        </button>
+        <button id="btnNSqrt" v-on:click="insert('(x^(1/y))')">
+          <sup>y</sup> &radic; <span style="text-decoration:overline;">x</span>
+        </button>
+        <button id="btnLn" v-on:click="insert('log(x)')">ln(x)</button>
+        <br />
+        <br />
+        <button id="btnLog" v-on:click="insert('log(x, y)')">log[y](x)</button>
+      </div>
+    </div>
+    <ol id="resultList">
+      <li v-for="output in outputs" v-on:click="selectResult">
+        {{ output }}
+      </li>
+    </ol>
+  </div>
+  <script>
+  var app = new Vue({
+    el: "#app",
+    data: {
+      input: "",
+      outputs: [0]
+    },
+    methods: {
+      updateOutput: function() {
+        this.outputs[0] = math.eval(this.input);
+      },
+      saveResult: function() {
+        this.outputs.unshift(math.eval(this.input));
+      },
+      selectResult: function(e) {
+        this.input = e.target.innerText;
+      },
+      insert: function (snippet) {
+        this.input += snippet;
+      },
+
+    }
+  });
+  </script>
+</body>

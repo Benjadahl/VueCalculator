@@ -1,0 +1,31 @@
+body{
+  counter-reset: item;
+}
+ol {
+  list-style: none;
+}
+li {
+  counter-increment: item;
+}
+li:before {
+  content: counter(item) ". ";
+  font-weight: bold;
+}
+#resultList {
+  display: inline-block;
+  position: absolute;
+}
+#inputs {
+  padding-right: 10px;
+  border-right: thin solid #2f2f2f;
+  display: inline-block;
+  height: 95%;
+  margin-top: 2px;
+}
+#buttons {
+  margin-top: 5px;
+}
+#inputField {
+  display: block;
+  width: 100%;
+}
